@@ -1,0 +1,2 @@
+# HexaDotNetCoreApplication
+Developing DotNetCore Application
