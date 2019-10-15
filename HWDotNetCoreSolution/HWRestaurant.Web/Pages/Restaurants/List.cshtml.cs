@@ -18,6 +18,8 @@ namespace HWRestaurant.Web.Pages.Restaurants
         public string SearchTerm { get; set; }
 
         public string Meassage { get; set; }
+        [TempData]
+        public string Message2 { get; set; }
         public IEnumerable<HWRestaurant.Core.Restaurant> Restaurants { get; set; }
         public ListModel(IConfiguration config, IRestaurantData restaurantData)
         {

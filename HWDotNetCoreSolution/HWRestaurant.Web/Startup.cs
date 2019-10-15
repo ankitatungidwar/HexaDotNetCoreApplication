@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HWRestaurant.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,8 +24,17 @@ namespace HWRestaurant.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Register EF database & options(ConnectionString)
+            services.AddDbContextPool<RestaurantDbContext>(options =>
+            {
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("HWRestaurantDb"));
+            });
+            //Register my custom data services
+            //services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
+            services.AddScoped<IRestaurantData, SQLRestaurantData>(); //dependencies injection
             services.AddRazorPages();
-            services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
