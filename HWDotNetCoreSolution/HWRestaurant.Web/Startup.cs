@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HWRestaurant.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,11 +34,13 @@ namespace HWRestaurant.Web
             //Register my custom data services
             //services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
             services.AddScoped<IRestaurantData, SQLRestaurantData>(); //dependencies injection
-            services.AddRazorPages();
+                                                                      // services.AddRazorPages();
+            services.AddMvc(option => option.EnableEndpointRouting = false);
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //middlewares
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -55,10 +58,28 @@ namespace HWRestaurant.Web
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseMvcWithDefaultRoute();
+            app.Use(SayHelloMiddleware); //custom middleware
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapRazorPages();
+            //});
+            
+        }
+        private RequestDelegate SayHelloMiddleware(RequestDelegate next)
+        {
+            return async ctx =>
             {
-                endpoints.MapRazorPages();
-            });
+                if (ctx.Request.Path.StartsWithSegments("/hello")) //http://localhost:3300/hello
+                {
+                    await ctx.Response.WriteAsync("Hello,World!");
+                }
+                else
+                {
+                    await next(ctx);
+                }
+            };
         }
     }
 }

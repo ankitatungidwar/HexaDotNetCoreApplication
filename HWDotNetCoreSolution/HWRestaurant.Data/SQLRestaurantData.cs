@@ -47,6 +47,11 @@ namespace HWRestaurant.Data
             return db.Restaurants.Find(id);
         }
 
+        public int GetCountRestaurants()
+        {
+            return db.Restaurants.Count();
+        }
+
         public IEnumerable<Restaurant> GetRestaurantsByName(string name)
         {
             var query = from r in db.Restaurants

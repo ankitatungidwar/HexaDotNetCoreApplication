@@ -39,8 +39,10 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            @RenderSection("footer", required: false)
-            &copy; 2019 - HWRestaurant.Web - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <vc:restaurant-count></vc:restaurant-count>
+            @*<img src ="~/logo.jpg" />*@
+            @*@RenderSection("footer", required: false)
+            &copy; 2019 - HWRestaurant.Web - <a asp-area="" asp-page="/Privacy">Privacy</a>*@
         </div>
     </footer>
 
