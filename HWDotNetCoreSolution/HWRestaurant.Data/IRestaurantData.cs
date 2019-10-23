@@ -11,7 +11,10 @@ namespace HWRestaurant.Data
         IEnumerable<Restaurant> GetRestaurantsByName(string name); //services
         Restaurant GetById(int id);
         Restaurant Update(Restaurant updatedRestaurant);
-        int Commit();
+        Restaurant Delete(int id);
         Restaurant Add(Restaurant newRestaurant);
+        int GetCountRestaurants();
+        int Commit();
+
     }
 }

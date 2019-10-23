@@ -62,5 +62,15 @@ namespace HWRestaurant.Data
             newRestaurant.Id = restaurants.Max(r => r.Id) + 1;
             return newRestaurant;          
         }
+
+        public Restaurant Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCountRestaurants()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

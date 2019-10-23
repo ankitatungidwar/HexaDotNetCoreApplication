@@ -5,9 +5,13 @@
 }
 
 <h1>Restaurants</h1>
-<repeat count="5">
+@if(Model.Message2 != null)
+{
+    <div class="alert alert-danger">@Model.Message2</div>
+}
+@*<repeat count="2">
     <h4>Ankita!! @DateTime.UtcNow.Year</h4>
-</repeat>
+</repeat>*@
 <form method="get">
     <div class="form-group">
         <div class="input-group">
@@ -22,10 +26,11 @@
 </form>
 
 
-<table class="table">
+
     @foreach (var restaurant in Model.Restaurants)
     {
-        <tr>
+        <partial name="_Summary" model="restaurant" />
+        @*<tr>
             <td>@restaurant.Name</td>
             <td>@restaurant.Location</td>
             <td>@restaurant.Cuisine</td>
@@ -40,8 +45,13 @@
                    asp-route-restaurantId="@restaurant.Id">
                     <i class="glyphicon glyphicon-edit"></i>
                 </a>
+                <a class="btn btn-lg"
+                   asp-page="./Delete"
+                   asp-route-restaurantId="@restaurant.Id">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
             </td>
-        </tr>
+        </tr>*@
         @*<tr>
                 <td>
                     <a class="btn btn-lg"
@@ -53,7 +63,7 @@
             </tr>*@
     }
 
-</table>
+
 <a asp-page=".\Edit" class="btn btn-primary">Add New</a>
 
 @*<div>
@@ -61,7 +71,7 @@
     </div>*@
 
 
-@section footer{
+@*@section footer{
     <div>@Model.Meassage</div>
-}
+}*@
 
